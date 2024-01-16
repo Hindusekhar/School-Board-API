@@ -24,6 +24,16 @@ public class User
 	private String email;
 	private UserRole userRole;
 	
+	private boolean isDeleted;
+	
+	
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -72,6 +82,7 @@ public class User
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
+	
 	
 	
 	

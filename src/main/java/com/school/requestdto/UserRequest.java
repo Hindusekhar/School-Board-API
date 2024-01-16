@@ -15,7 +15,6 @@ public class UserRequest
 	private UserRole userRole;
 	
 	
-	
 	public String getPassword() {
 		return password;
 	}
