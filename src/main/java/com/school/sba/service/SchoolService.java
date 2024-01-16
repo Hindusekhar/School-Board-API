@@ -1,6 +1,12 @@
 package com.school.sba.service;
 
+import org.springframework.http.ResponseEntity;
+
+import com.school.requestdto.UserRequest;
+import com.school.responsedto.UserResponse;
 import com.school.sba.entity.School;
+import com.school.sba.entity.User;
+import com.school.sba.util.ResponseStructure;
 
 public interface SchoolService 
 {

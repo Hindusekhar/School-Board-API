@@ -3,11 +3,16 @@ package com.school.sba.serviceImpl;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.school.requestdto.UserRequest;
+import com.school.responsedto.UserResponse;
 import com.school.sba.entity.School;
+import com.school.sba.entity.User;
 import com.school.sba.repository.SchoolRepository;
 import com.school.sba.service.SchoolService;
+import com.school.sba.util.ResponseStructure;
 
 
 @Service
@@ -15,7 +20,7 @@ public  class SchoolServiceImpl implements SchoolService
 {
 	@Autowired	
 	private SchoolRepository schoolRepository;
-
+	
 	@Override
 	public School save(String schoolName, long contactNo, String emailId, String address) {
 		School school=new School();
@@ -63,6 +68,12 @@ public  class SchoolServiceImpl implements SchoolService
 		}else
 		return null;
 	}
+
+	
+
+	
+	
+	
 	
 
 	
