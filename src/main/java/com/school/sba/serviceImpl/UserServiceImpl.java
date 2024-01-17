@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 	@Autowired
 	private ResponseStructure<UserResponse> responseStructure;
+	
 
 	private User mapToUser(UserRequest userRequest) {
 		User user = new User();
@@ -50,9 +51,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<ResponseStructure<UserResponse>> registerUser(UserRequest userRequest) {
-		if (userRequest.getUserRole().equals(UserRole.ADMIN)) {
-			if (userRepository.existsByUserRole(userRequest.getUserRole()) == false) {
+	public ResponseEntity<ResponseStructure<UserResponse>> registerUser(UserRequest userRequest) 
+	{
+		
+		
+		if (userRequest.getUserRole().equals(UserRole.ADMIN)) 
+		{
+		
+			if (userRepository.existsByUserRole(userRequest.getUserRole()) == false )
+			{
 				User user;
 				try {
 					user = userRepository.save(mapToUser(userRequest));
@@ -82,14 +89,35 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<ResponseStructure<UserResponse>> deletUser(int userId) {
-
+	public ResponseEntity<ResponseStructure<UserResponse>> deletUser(int userId)
+	{
 		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundById("user not found by Id"));
+		
 
+		if(user.isDeleted()==false)
+		{
+			throw new UserNotFoundById("user already deleted");
+		}
+			user.setUserId(userId);
+		user.setDeleted(false);
+		userRepository.save(user);	
 		responseStructure.setStatus(HttpStatus.OK.value());
 		responseStructure.setMesaage("user sucessfully deleted");
 		responseStructure.setData(mapToUserResponse(user));
 		return new ResponseEntity<ResponseStructure<UserResponse>>(responseStructure, HttpStatus.OK);
+		
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<UserResponse>> findUniqueUser(int userId)
+	{
+		User user = userRepository.findById(userId).orElseThrow(()->new UserNotFoundById("user not found with the id " +userId));
+		
+		responseStructure.setStatus(HttpStatus.OK.value());
+		responseStructure.setMesaage("user sucessfully deleted");
+		responseStructure.setData(mapToUserResponse(user));
+		return new ResponseEntity<ResponseStructure<UserResponse>>(responseStructure, HttpStatus.OK);
+		
 	}
 
 }

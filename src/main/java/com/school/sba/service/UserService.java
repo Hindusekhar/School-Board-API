@@ -12,6 +12,8 @@ public interface UserService
 	ResponseEntity<ResponseStructure<UserResponse>> registerUser(UserRequest userRequest);
 
 	ResponseEntity<ResponseStructure<UserResponse>> deletUser(int userId);
+
+	ResponseEntity<ResponseStructure<UserResponse>> findUniqueUser(int userId);
 	
 	
 
